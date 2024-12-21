@@ -24,6 +24,12 @@ public class RecommendationController {
         return new ResponseEntity<>(savedRecommendation, HttpStatus.CREATED);
     }
 
+    @PostMapping("{sessionId}")
+    public ResponseEntity<RecommendationDto> generateRecommendation(@PathVariable("sessionId") Long sessionId) {
+        RecommendationDto savedRecommendation = recommendationService.generateSessionRecommendation(sessionId);
+        return new ResponseEntity<>(savedRecommendation, HttpStatus.CREATED);
+    }
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<RecommendationDto>> getRecommendationsByUserId(@PathVariable("userId") Long userId) {
         List<RecommendationDto> recommendations = recommendationService.getRecommendationsByUserId(userId);

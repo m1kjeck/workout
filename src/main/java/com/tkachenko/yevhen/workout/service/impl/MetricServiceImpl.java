@@ -4,6 +4,7 @@ import com.tkachenko.yevhen.workout.dto.MetricDto;
 import com.tkachenko.yevhen.workout.entity.Exercise;
 import com.tkachenko.yevhen.workout.entity.Metric;
 import com.tkachenko.yevhen.workout.entity.Session;
+import com.tkachenko.yevhen.workout.entity.User;
 import com.tkachenko.yevhen.workout.exception.ResourceNotFoundException;
 import com.tkachenko.yevhen.workout.mapper.MetricMapper;
 import com.tkachenko.yevhen.workout.repository.MetricRepository;
@@ -30,14 +31,35 @@ public class MetricServiceImpl implements MetricService {
         Session session = sessionRepository.findById(metricDto.getSessionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Session not found with id: " + metricDto.getSessionId()));
 
+        User user = session.getUser();
+        float userHeight = user.getHeight();
+
         int newRepNumber = session.getTotalReps() + 1;
         session.setTotalReps(newRepNumber);
+
+        LocalDateTime previousTimestamp = metricRepository.findTopBySessionSessionIdOrderByTimestampDesc(session.getSessionId())
+                .map(Metric::getTimestamp)
+                .orElse(null);
+
+        float repTime = 2.5f;
+        if (previousTimestamp != null) {
+            repTime = (float) java.time.Duration.between(previousTimestamp, LocalDateTime.now()).toMillis() / 1000;
+        }
+
+        float correctnessScore = CorrectnessScoreCalculator.calculateCorrectnessScore(
+                metricDto.getHeight(),
+                metricDto.getTiltAngle(),
+                newRepNumber,
+                repTime,
+                userHeight
+        );
 
         Metric metric = new Metric();
         metric.setSession(session);
         metric.setRepNumber(newRepNumber);
         metric.setHeight(metricDto.getHeight());
-        metric.setCorrectnessScore(metricDto.getCorrectnessScore());
+        metric.setTiltAngle(metricDto.getTiltAngle());
+        metric.setCorrectnessScore(correctnessScore);
         metric.setTimestamp(LocalDateTime.now());
 
         Metric savedMetric = metricRepository.save(metric);

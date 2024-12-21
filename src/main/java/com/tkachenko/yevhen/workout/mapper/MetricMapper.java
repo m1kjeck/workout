@@ -12,6 +12,7 @@ public class MetricMapper {
                 metric.getTimestamp(),
                 metric.getRepNumber(),
                 metric.getHeight(),
+                metric.getTiltAngle(),
                 metric.getCorrectnessScore()
         );
     }
@@ -23,6 +24,7 @@ public class MetricMapper {
                 metricDto.getTimestamp(),
                 metricDto.getRepNumber(),
                 metricDto.getHeight(),
+                metricDto.getTiltAngle(),
                 metricDto.getCorrectnessScore()
         );
     }

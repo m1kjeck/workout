@@ -24,19 +24,31 @@ public class Metric {
     @Column(nullable = false)
     private Float height;
 
+    @Column(name = "tilt_angle", nullable = false)
+    private Float tiltAngle;
+
     @Column(name = "correctness_score", nullable = false)
     private Float correctnessScore;
 
     public Metric() {
     }
 
-    public Metric(Long metricId, Session session, LocalDateTime timestamp, Integer repNumber, Float height, Float correctnessScore) {
+    public Metric(Long metricId, Session session, LocalDateTime timestamp, Integer repNumber, Float height, Float tiltAngle, Float correctnessScore) {
         this.metricId = metricId;
         this.session = session;
         this.timestamp = timestamp;
         this.repNumber = repNumber;
         this.height = height;
+        this.tiltAngle = tiltAngle;
         this.correctnessScore = correctnessScore;
+    }
+
+    public void setTiltAngle(Float tiltAngle) {
+        this.tiltAngle = tiltAngle;
+    }
+
+    public Float getTiltAngle() {
+        return tiltAngle;
     }
 
     public Long getMetricId() {

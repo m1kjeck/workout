@@ -8,17 +8,27 @@ public class UserDto {
     private String username;
     private String email;
     private String password;
+    private Float height;
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public UserDto() {
     }
 
-    public UserDto(Long userId, String username, String email, String password, LocalDateTime createdAt) {
+    public UserDto(Long userId, String username, String email, String password, Float height, LocalDateTime createdAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.height = height;
         this.createdAt = createdAt;
+    }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
     }
 
     public Long getUserId() {

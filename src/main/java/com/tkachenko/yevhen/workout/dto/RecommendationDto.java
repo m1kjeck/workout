@@ -4,18 +4,16 @@ import java.time.LocalDateTime;
 
 public class RecommendationDto {
     private Long recommendationId;
-    private Long userId;
-    private Long exerciseId;
+    private Long sessionId;
     private String message;
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public RecommendationDto() {
     }
 
-    public RecommendationDto(Long recommendationId, Long userId, Long exerciseId, String message, LocalDateTime createdAt) {
+    public RecommendationDto(Long recommendationId, Long sessionId, String message, LocalDateTime createdAt) {
         this.recommendationId = recommendationId;
-        this.userId = userId;
-        this.exerciseId = exerciseId;
+        this.sessionId = sessionId;
         this.message = message;
         this.createdAt = createdAt;
     }
@@ -24,12 +22,8 @@ public class RecommendationDto {
         return recommendationId;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public Long getExerciseId() {
-        return exerciseId;
+    public Long getSessionId() {
+        return sessionId;
     }
 
     public String getMessage() {
@@ -44,12 +38,8 @@ public class RecommendationDto {
         this.recommendationId = recommendationId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public void setExerciseId(Long exerciseId) {
-        this.exerciseId = exerciseId;
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 
     public void setMessage(String message) {

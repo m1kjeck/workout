@@ -11,13 +11,9 @@ public class Recommendation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recommendationId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "exercise_id", nullable = false)
-    private Exercise exercise;
+    @OneToOne
+    @JoinColumn(name = "session_id", nullable = false)
+    private Session session;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
@@ -28,10 +24,9 @@ public class Recommendation {
     public Recommendation() {
     }
 
-    public Recommendation(Long recommendationId, User user, Exercise exercise, String message, LocalDateTime createdAt) {
+    public Recommendation(Long recommendationId, Session session, String message, LocalDateTime createdAt) {
         this.recommendationId = recommendationId;
-        this.user = user;
-        this.exercise = exercise;
+        this.session = session;
         this.message = message;
         this.createdAt = createdAt;
     }
@@ -40,12 +35,8 @@ public class Recommendation {
         return recommendationId;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public Exercise getExercise() {
-        return exercise;
+    public Session getSession() {
+        return session;
     }
 
     public String getMessage() {
@@ -60,12 +51,8 @@ public class Recommendation {
         this.recommendationId = recommendationId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setExercise(Exercise exercise) {
-        this.exercise = exercise;
+    public void setSession(Session session) {
+        this.session = session;
     }
 
     public void setMessage(String message) {

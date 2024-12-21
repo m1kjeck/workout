@@ -21,18 +21,30 @@ public class User {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
+    @Column(nullable = false)
+    private Float height;
+
     @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public User() {
     }
 
-    public User(Long userId, String username, String email, String passwordHash, LocalDateTime createdAt) {
+    public User(Long userId, String username, String email, String passwordHash, Float height, LocalDateTime createdAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
+        this.height = height;
         this.createdAt = createdAt;
+    }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
     }
 
     public Long getUserId() {

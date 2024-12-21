@@ -8,6 +8,8 @@ public interface RecommendationService {
 
     RecommendationDto createRecommendation(RecommendationDto recommendationDto);
 
+    RecommendationDto generateSessionRecommendation(Long sessionId);
+
     List<RecommendationDto> getRecommendationsByUserId(Long userId);
 
     void deleteRecommendation(Long recommendationId);

@@ -10,6 +10,7 @@ public class UserMapper {
                 user.getUsername(),
                 user.getEmail(),
                 null,
+                user.getHeight(),
                 user.getCreatedAt()
         );
     }
@@ -20,6 +21,7 @@ public class UserMapper {
                 userDto.getUsername(),
                 userDto.getEmail(),
                 null,
+                userDto.getHeight(),
                 userDto.getCreatedAt()
         );
     }
