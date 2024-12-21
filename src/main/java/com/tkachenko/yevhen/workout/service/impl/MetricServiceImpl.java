@@ -11,6 +11,7 @@ import com.tkachenko.yevhen.workout.repository.SessionRepository;
 import com.tkachenko.yevhen.workout.service.MetricService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,8 +29,27 @@ public class MetricServiceImpl implements MetricService {
     public MetricDto createMetric(MetricDto metricDto) {
         Session session = sessionRepository.findById(metricDto.getSessionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Session not found with id: " + metricDto.getSessionId()));
-        Metric metric = MetricMapper.mapToMetric(metricDto, session);
+
+        int newRepNumber = session.getTotalReps() + 1;
+        session.setTotalReps(newRepNumber);
+
+        Metric metric = new Metric();
+        metric.setSession(session);
+        metric.setRepNumber(newRepNumber);
+        metric.setHeight(metricDto.getHeight());
+        metric.setCorrectnessScore(metricDto.getCorrectnessScore());
+        metric.setTimestamp(LocalDateTime.now());
+
         Metric savedMetric = metricRepository.save(metric);
+
+        if (session.getStartTime() == null || metric.getTimestamp().isBefore(session.getStartTime())) {
+            session.setStartTime(metric.getTimestamp());
+        }
+        if (session.getEndTime() == null || metric.getTimestamp().isAfter(session.getEndTime())) {
+            session.setEndTime(metric.getTimestamp());
+        }
+        sessionRepository.save(session);
+
         return MetricMapper.mapToMetricDto(savedMetric);
     }
 

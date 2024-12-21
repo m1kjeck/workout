@@ -35,6 +35,9 @@ public class SessionServiceImpl implements SessionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Exercise not found with id: " + sessionDto.getExerciseId()));
 
         Session session = SessionMapper.mapToSession(sessionDto, user, exercise);
+        session.setStartTime(null);
+        session.setEndTime(null);
+        session.setTotalReps(0);
         Session savedSession = sessionRepository.save(session);
         return SessionMapper.mapToSessionDto(savedSession);
     }
