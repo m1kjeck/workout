@@ -4,7 +4,6 @@ import com.tkachenko.yevhen.workout.dto.RecommendationDto;
 import com.tkachenko.yevhen.workout.entity.Metric;
 import com.tkachenko.yevhen.workout.entity.Recommendation;
 import com.tkachenko.yevhen.workout.entity.Session;
-import com.tkachenko.yevhen.workout.entity.User;
 import com.tkachenko.yevhen.workout.exception.ResourceNotFoundException;
 import com.tkachenko.yevhen.workout.mapper.RecommendationMapper;
 import com.tkachenko.yevhen.workout.repository.MetricRepository;
